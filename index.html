@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flourish Finance - Your Path to Financial Wisdom</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --warm-cream: #FAF7F2;
+            --soft-terracotta: #D4856A;
+            --deep-sage: #5F6F52;
+            --warm-gold: #C9A86A;
+            --rich-brown: #3E362E;
+            --accent-rose: #E8B4A8;
+            --input-green: #92D050;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background: var(--warm-cream);
+            color: var(--rich-brown);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .bg-decoration {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.03;
+            background-image: 
+                radial-gradient(circle at 20% 30%, var(--warm-gold) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, var(--soft-terracotta) 0%, transparent 50%);
+        }
+
+        header {
+            position: relative;
+            padding: 2.5rem 5%;
+            background: linear-gradient(135deg, var(--warm-cream) 0%, rgba(201, 168, 106, 0.08) 100%);
+            border-bottom: 1px solid rgba(62, 54, 46, 0.08);
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--deep-sage);
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--rich-brown);
+            text-decoration: none;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--warm-gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--soft-terracotta);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            position: relative;
+            padding: 8rem 5% 6rem;
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            animation: fadeIn 1s ease-out 0.2s backwards;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            color: var(--deep-sage);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--rich-brown);
+            opacity: 0.8;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--soft-terracotta);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(212, 133, 106, 0.2);
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background: var(--deep-sage);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(95, 111, 82, 0.3);
+        }
+
+        .content-section {
+            position: relative;
+            padding: 5rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            color: var(--deep-sage);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--rich-brown);
+            opacity: 0.7;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Calculator Section */
+        .calculator-section {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(201, 168, 106, 0.05) 100%);
+            padding: 5rem 5%;
+            margin: 4rem 0;
+        }
+
+        .calculator-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 3rem;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 2rem;
+        }
+
+        .assumptions-box {
+            background: var(--warm-cream);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border-left: 3px solid var(--soft-terracotta);
+        }
+
+        .assumptions-box h4 {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--deep-sage);
+            margin-bottom: 0.75rem;
+            font-size: 1.3rem;
+        }
+
+        .assumptions-box ul {
+            list-style: none;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .assumptions-box li {
+            padding: 0.4rem 0;
+            padding-left: 1.2rem;
+            position: relative;
+        }
+
+        .assumptions-box li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--soft-terracotta);
+        }
+
+        .input-group {
+            margin-bottom: 1.8rem;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.95rem;
+            color: var(--rich-brown);
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 0.9rem;
+            border: 2px solid rgba(146, 208, 80, 0.3);
+            border-radius: 6px;
+            font-size: 1rem;
+            background: rgba(146, 208, 80, 0.05);
+            transition: all 0.3s ease;
+            font-family: 'Lato', sans-serif;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--input-green);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(146, 208, 80, 0.1);
+        }
+
+        .input-note {
+            font-size: 0.85rem;
+            color: var(--rich-brown);
+            opacity: 0.6;
+            margin-top: 0.3rem;
+            font-style: italic;
+        }
+
+        .results-panel {
+            background: linear-gradient(135deg, var(--deep-sage) 0%, rgba(95, 111, 82, 0.9) 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            height: fit-content;
+        }
+
+        .results-panel h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .result-item {
+            padding: 1.2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .result-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 0.3rem;
+        }
+
+        .result-value {
+            font-size: 1.8rem;
+            font-weight: 400;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .result-highlight {
+            background: rgba(201, 168, 106, 0.3);
+            border-left: 3px solid var(--warm-gold);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.04);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(201, 168, 106, 0.15);
+            animation: fadeInUp 0.8s ease-out backwards;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
+        .card:nth-child(5) { animation-delay: 0.5s; }
+        .card:nth-child(6) { animation-delay: 0.6s; }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 50px rgba(212, 133, 106, 0.15);
+            border-color: var(--warm-gold);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card h3 {
+            font-size: 1.8rem;
+            color: var(--deep-sage);
+            margin-bottom: 1rem;
+        }
+
+        .card p {
+            color: var(--rich-brown);
+            opacity: 0.8;
+            line-height: 1.8;
+        }
+
+        .investment-types {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(201, 168, 106, 0.05) 100%);
+            padding: 5rem 5%;
+            margin: 4rem 0;
+        }
+
+        .investment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 3rem auto 0;
+        }
+
+        .investment-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--warm-gold);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out backwards;
+        }
+
+        .investment-card:nth-child(odd) {
+            border-left-color: var(--soft-terracotta);
+        }
+
+        .investment-card:hover {
+            transform: translateX(8px);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .investment-card h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            color: var(--deep-sage);
+            margin-bottom: 0.75rem;
+        }
+
+        .investment-card p {
+            color: var(--rich-brown);
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+
+        .resources {
+            padding: 5rem 5%;
+            background: white;
+        }
+
+        .resource-list {
+            max-width: 900px;
+            margin: 3rem auto;
+            list-style: none;
+        }
+
+        .resource-item {
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            background: var(--warm-cream);
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-rose);
+            transition: all 0.3s ease;
+            animation: fadeInLeft 0.8s ease-out backwards;
+        }
+
+        .resource-item:nth-child(1) { animation-delay: 0.1s; }
+        .resource-item:nth-child(2) { animation-delay: 0.2s; }
+        .resource-item:nth-child(3) { animation-delay: 0.3s; }
+        .resource-item:nth-child(4) { animation-delay: 0.4s; }
+
+        .resource-item:hover {
+            background: white;
+            border-left-color: var(--warm-gold);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .resource-item h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            color: var(--deep-sage);
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            position: relative;
+            padding: 3rem 5%;
+            background: linear-gradient(135deg, var(--deep-sage) 0%, rgba(62, 54, 46, 0.95) 100%);
+            color: white;
+            text-align: center;
+        }
+
+        footer p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .calculator-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .section-header h2 {
+                font-size: 2.2rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .calculator-container {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-decoration"></div>
+
+    <header>
+        <nav>
+            <div class="logo">Flourish Finance</div>
+            <ul class="nav-links">
+                <li><a href="#basics">Basics</a></li>
+                <li><a href="#calculator">Calculator</a></li>
+                <li><a href="#investments">Investments</a></li>
+                <li><a href="#resources">Resources</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Your Journey to Financial Freedom</h1>
+        <p>Empowering you with the knowledge and confidence to make informed financial decisions and build lasting wealth.</p>
+        <a href="#calculator" class="cta-button">Calculate Your Retirement</a>
+    </section>
+
+    <section id="calculator" class="calculator-section">
+        <div class="section-header">
+            <h2>Retirement Corpus Calculator</h2>
+            <p>Plan your financial future with our comprehensive retirement calculator</p>
+        </div>
+
+        <div class="calculator-container">
+            <div class="assumptions-box">
+                <h4>Assumptions & Limitations</h4>
+                <ul>
+                    <li>No taxes assumed post retirement (although there will be taxes involved)</li>
+                    <li>NPS, PPF investments shall be deducted from the required corpus but have not been considered here</li>
+                    <li>No STCG or Tax Harvesting is considered</li>
+                    <li>LTCG at 12.5% and Other Income (FDs) at 30% taxation are considered</li>
+                </ul>
+            </div>
+
+            <div class="calculator-grid">
+                <div class="inputs-panel">
+                    <h3 style="font-size: 2rem; color: var(--deep-sage); margin-bottom: 2rem;">Your Details</h3>
+                    
+                    <div class="input-group">
+                        <label>Current Age</label>
+                        <input type="number" id="currentAge" value="32" min="18" max="100">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Retirement Age</label>
+                        <input type="number" id="retirementAge" value="52" min="18" max="100">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Current Equity Holdings (₹)</label>
+                        <input type="number" id="currentEquity" value="1500000" min="0" step="10000">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Current Fixed Deposits (₹)</label>
+                        <input type="number" id="currentFD" value="2000000" min="0" step="10000">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Expected Equity Returns (%)</label>
+                        <input type="number" id="equityReturn" value="10" min="0" max="100" step="0.1">
+                    </div>
+
+                    <div class="input-group">
+                        <label>FD Return (%)</label>
+                        <input type="number" id="fdReturn" value="6" min="0" max="100" step="0.1">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Monthly Expenses (₹)</label>
+                        <input type="number" id="monthlyExpenses" value="80000" min="0" step="1000">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Money Withdrawal % (Post-Retirement)</label>
+                        <input type="number" id="withdrawalRate" value="4" min="0" max="100" step="0.1">
+                        <div class="input-note">This is the post retirement withdrawal rate</div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Life Expectancy (years)</label>
+                        <input type="number" id="lifeExpectancy" value="90" min="50" max="120">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Expected Inflation (%)</label>
+                        <input type="number" id="inflation" value="6" min="0" max="100" step="0.1">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Healthcare Buffer (₹)</label>
+                        <input type="number" id="healthcareBuffer" value="6000000" min="0" step="100000">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Other Contingency (₹)</label>
+                        <input type="number" id="contingency" value="5000000" min="0" step="100000">
+                    </div>
+
+                    <button class="cta-button" style="width: 100%; margin-top: 1rem;" onclick="calculate()">Calculate Now</button>
+                </div>
+
+                <div class="results-panel">
+                    <h3>Your Results</h3>
+                    
+                    <div class="result-item">
+                        <div class="result-label">Years to Retirement</div>
+                        <div class="result-value" id="yearsToRetirement">20 years</div>
+                    </div>
+
+                    <div class="result-item">
+                        <div class="result-label">Total Corpus Today</div>
+                        <div class="result-value" id="totalCorpusToday">₹35,00,000</div>
+                    </div>
+
+                    <div class="result-item">
+                        <div class="result-label">Future Value (Post-Tax)</div>
+                        <div class="result-value" id="futureValue">₹1,41,07,331</div>
+                    </div>
+
+                    <div class="result-item">
+                        <div class="result-label">Monthly Need at Retirement</div>
+                        <div class="result-value" id="monthlyNeed">₹2,56,571</div>
+                    </div>
+
+                    <div class="result-item result-highlight">
+                        <div class="result-label">Required Total Corpus</div>
+                        <div class="result-value" id="totalRequired">₹8,79,71,250</div>
+                    </div>
+
+                    <div class="result-item result-highlight">
+                        <div class="result-label">Monthly SIP Required</div>
+                        <div class="result-value" id="monthlySIP">₹96,466</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="basics" class="content-section">
+        <div class="section-header">
+            <h2>Financial Foundations</h2>
+            <p>Master the essential concepts that form the bedrock of financial literacy</p>
+        </div>
+
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-icon">💰</div>
+                <h3>Budgeting</h3>
+                <p>Learn to track your income and expenses, create a sustainable budget, and develop healthy spending habits that align with your financial goals.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🌱</div>
+                <h3>Saving</h3>
+                <p>Discover effective strategies for building an emergency fund, automating your savings, and cultivating the discipline needed for long-term financial security.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">📊</div>
+                <h3>Understanding Credit</h3>
+                <p>Demystify credit scores, learn how to build excellent credit, and understand the impact of debt on your financial wellbeing.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🎯</div>
+                <h3>Financial Goals</h3>
+                <p>Set clear, achievable financial objectives and create actionable plans to reach milestones like homeownership, retirement, or starting a business.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🛡️</div>
+                <h3>Risk Management</h3>
+                <p>Protect your assets through insurance, understand different types of coverage, and learn how to safeguard your financial future.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">📈</div>
+                <h3>Building Wealth</h3>
+                <p>Explore wealth-building strategies, understand compound interest, and learn how small, consistent actions lead to significant long-term growth.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="investments" class="investment-types">
+        <div class="section-header">
+            <h2>Investment Pathways</h2>
+            <p>Explore diverse investment opportunities to grow your wealth</p>
+        </div>
+
+        <div class="investment-grid">
+            <div class="investment-card">
+                <h4>Stocks</h4>
+                <p>Own shares in companies and participate in their growth. Learn about dividend investing, growth stocks, and how to analyze companies.</p>
+            </div>
+
+            <div class="investment-card">
+                <h4>Bonds</h4>
+                <p>Generate steady income through government and corporate bonds. Understand bond ratings, yields, and how they balance your portfolio.</p>
+            </div>
+
+            <div class="investment-card">
+                <h4>Mutual Funds</h4>
+                <p>Diversify instantly with professionally managed funds. Learn about expense ratios, fund types, and how to choose the right funds.</p>
+            </div>
+
+            <div class="investment-card">
+                <h4>ETFs</h4>
+                <p>Combine the benefits of stocks and mutual funds with exchange-traded funds. Discover index ETFs and sector-specific opportunities.</p>
+            </div>
+
+            <div class="investment-card">
+                <h4>Real Estate</h4>
+                <p>Build wealth through property investment. Explore rental properties, REITs, and real estate crowdfunding platforms.</p>
+            </div>
+
+            <div class="investment-card">
+                <h4>Retirement Accounts</h4>
+                <p>Maximize tax-advantaged growth with 401(k)s and IRAs. Understand contribution limits, employer matching, and withdrawal rules.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="resources" class="resources">
+        <div class="section-header">
+            <h2>Learning Resources</h2>
+            <p>Deepen your knowledge with curated educational materials</p>
+        </div>
+
+        <ul class="resource-list">
+            <li class="resource-item">
+                <h4>📚 Essential Reading</h4>
+                <p>Recommended books: "The Intelligent Investor" by Benjamin Graham, "A Random Walk Down Wall Street" by Burton Malkiel, and "The Psychology of Money" by Morgan Housel.</p>
+            </li>
+
+            <li class="resource-item">
+                <h4>🎓 Online Courses</h4>
+                <p>Free courses from platforms like Coursera, Khan Academy, and edX covering everything from basic personal finance to advanced investment strategies.</p>
+            </li>
+
+            <li class="resource-item">
+                <h4>📱 Financial Tools</h4>
+                <p>Use apps like Mint for budgeting, Personal Capital for investment tracking, and YNAB (You Need A Budget) for zero-based budgeting.</p>
+            </li>
+
+            <li class="resource-item">
+                <h4>🎙️ Podcasts & Blogs</h4>
+                <p>Stay informed with "The Money Guy Show," "BiggerPockets Money," and blogs like Mr. Money Mustache and The Simple Dollar.</p>
+            </li>
+        </ul>
+    </section>
+
+    <footer>
+        <p>© 2026 Flourish Finance. Empowering your financial journey, one decision at a time.</p>
+        <p style="margin-top: 1rem; opacity: 0.7; font-size: 0.85rem;">Disclaimer: This website provides educational information only and is not financial advice. Please consult with a qualified financial advisor for personalized guidance.</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Format currency
+        function formatCurrency(value) {
+            return '₹' + Math.round(value).toLocaleString('en-IN');
+        }
+
+        // Calculate retirement corpus
+        function calculate() {
+            // Get input values
+            const currentAge = parseFloat(document.getElementById('currentAge').value);
+            const retirementAge = parseFloat(document.getElementById('retirementAge').value);
+            const currentEquity = parseFloat(document.getElementById('currentEquity').value);
+            const currentFD = parseFloat(document.getElementById('currentFD').value);
+            const equityReturn = parseFloat(document.getElementById('equityReturn').value) / 100;
+            const fdReturn = parseFloat(document.getElementById('fdReturn').value) / 100;
+            const monthlyExpenses = parseFloat(document.getElementById('monthlyExpenses').value);
+            const withdrawalRate = parseFloat(document.getElementById('withdrawalRate').value) / 100;
+            const lifeExpectancy = parseFloat(document.getElementById('lifeExpectancy').value);
+            const inflation = parseFloat(document.getElementById('inflation').value) / 100;
+            const healthcareBuffer = parseFloat(document.getElementById('healthcareBuffer').value);
+            const contingency = parseFloat(document.getElementById('contingency').value);
+
+            // Tax rates
+            const ltcgTax = 0.125;
+            const fdTax = 0.3;
+
+            // Calculations
+            const yearsToRetirement = retirementAge - currentAge;
+            const totalCorpusToday = currentEquity + currentFD;
+            
+            // Future value calculations
+            const equityFutureValue = currentEquity * Math.pow(1 + equityReturn, yearsToRetirement);
+            const fdFutureValue = currentFD * Math.pow(1 + fdReturn, yearsToRetirement);
+            const totalFutureValue = equityFutureValue + fdFutureValue;
+            
+            // Tax calculations
+            const equityTax = (equityFutureValue - currentEquity) * ltcgTax;
+            const fdTaxAmount = (fdFutureValue - currentFD) * fdTax;
+            const futureValuePostTax = totalFutureValue - equityTax - fdTaxAmount;
+            
+            // Retirement needs
+            const monthlyNeedAtRetirement = monthlyExpenses * Math.pow(1 + inflation, yearsToRetirement);
+            const yearlyNeedAtRetirement = monthlyNeedAtRetirement * 12;
+            
+            // Required corpus
+            const requiredCorpus = yearlyNeedAtRetirement / withdrawalRate;
+            const totalCorpusRequired = requiredCorpus + healthcareBuffer + contingency;
+            
+            // Further investment needed
+            const corpusGap = totalCorpusRequired - futureValuePostTax;
+            
+            // Monthly SIP calculation
+            const monthlyRate = equityReturn / 12;
+            const months = yearsToRetirement * 12;
+            const monthlySIP = (corpusGap * monthlyRate) / (Math.pow(1 + monthlyRate, months) - 1) / (1 + monthlyRate);
+
+            // Update display
+            document.getElementById('yearsToRetirement').textContent = Math.round(yearsToRetirement) + ' years';
+            document.getElementById('totalCorpusToday').textContent = formatCurrency(totalCorpusToday);
+            document.getElementById('futureValue').textContent = formatCurrency(futureValuePostTax);
+            document.getElementById('monthlyNeed').textContent = formatCurrency(monthlyNeedAtRetirement);
+            document.getElementById('totalRequired').textContent = formatCurrency(totalCorpusRequired);
+            document.getElementById('monthlySIP').textContent = formatCurrency(monthlySIP);
+        }
+
+        // Calculate on page load
+        calculate();
+
+        // Recalculate when any input changes
+        const inputs = document.querySelectorAll('input[type="number"]');
+        inputs.forEach(input => {
+            input.addEventListener('input', calculate);
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.card, .investment-card, .resource-item').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
